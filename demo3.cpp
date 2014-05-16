@@ -359,6 +359,11 @@ bool ViewerEventHandlers::nearestInterpolation = true;
 
 int main ( int argc, char *argv[] )
 {
+
+  if (argc<=1) {
+    cerr << "Usage: demo3 <.t file>" << endl;
+    return 1;
+  }
   GLUTwrapper(new ViewerEventHandlers(argc,argv)).run();
   return 0;
 }
