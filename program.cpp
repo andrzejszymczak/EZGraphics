@@ -1,4 +1,4 @@
-
+#define GLM_FORCE_RADIANS
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <assert.h>

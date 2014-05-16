@@ -1,4 +1,4 @@
-
+#define GLM_FORCE_RADIANS
 #include <mesh.h>
 #include <fstream>
 #include <glm/glm.hpp>

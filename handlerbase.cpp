@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <cstdio>
 
 #include <mesh.h>
 #include <handlerbase.h>

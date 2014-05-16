@@ -1,4 +1,4 @@
-
+#define GLM_FORCE_RADIANS
 #include <GL/gl.h>
 #include <glm/glm.hpp>
 

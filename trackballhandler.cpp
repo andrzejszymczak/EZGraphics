@@ -21,7 +21,7 @@ namespace EZGraphics {
 /* -------------------------------------- */
 
 TrackballHandler::TrackballHandler ( int argc, char **argv, unsigned int mode, int width, int height ) :
-  EventHandlerBase(argc,argv,mode,width,height), zoom(3.0f)
+  EventHandlerBase(argc,argv,mode,width,height), zoom(0.05f)
 {
   t = new Trackball(width,height);
 }
@@ -31,9 +31,9 @@ TrackballHandler::TrackballHandler ( int argc, char **argv, unsigned int mode, i
 void TrackballHandler::motionWithMiddleButtonDown ( int mx, int my )
 {
   int dy = my-lasty;
-  zoom += dy/100.0;
-  if (zoom<=0.01) zoom = 0.01;
-  if (zoom>=179) zoom = 179;
+  zoom += dy/6000.0;
+  if (zoom<=0.0001) zoom = 0.0001;
+  if (zoom>=0.999*M_PI) zoom = 0.999*M_PI;
   lasty = my;
 }
 

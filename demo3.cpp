@@ -1,4 +1,4 @@
-
+#define GLM_FORCE_RADIANS
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glext.h>
@@ -170,7 +170,7 @@ public:
   {
     // move light source (if it is supposed to move)
     if (lightMoving) 
-      lloc = vec3(rotate(mat4(),.75f,vec3(0.0,0.0,1.0))*vec4(lloc,1.0));
+      lloc = vec3(rotate(mat4(),.015f,vec3(0.0,0.0,1.0))*vec4(lloc,1.0));
 
     glutTimerFunc(30,timerFunc,0);  // come here again in 30ms
   }

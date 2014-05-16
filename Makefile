@@ -1,7 +1,7 @@
 
 CC = g++ 
 OPT =  -Wall -I/usr/include/glm -I.  -O2
-LIBOPT = -lglut -lGL -lGLEW
+LIBOPT =  -L/usr/lib/nvidia-331/ -lglut -lGL -lGLEW
 SOURCES = buffer.cpp framebuffer.cpp glutwrapper.cpp handlerbase.cpp menucreator.cpp mesh.cpp program.cpp shader.cpp texture.cpp tfprogram.cpp trackball.cpp trackballhandler.cpp vertexarray.cpp 
 OBJECTS = $(subst .cpp,.o,$(SOURCES))
 
