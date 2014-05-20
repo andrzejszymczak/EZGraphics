@@ -98,22 +98,6 @@ void VertexArray::sendToPipelineInstanced ( GLenum ptype, GLint first, GLsizei n
 
 /* ------------------------------------------- */
 
-void VertexArray::setDivisor ( GLuint aix, GLuint divisor )
-{
-  on();
-  glVertexAttribDivisor(aix,divisor);
-  off();
-}
-
-/* ------------------------------------------- */
-
-void VertexArray::resetDivisor ( GLuint aix )
-{
-  setDivisor(aix,0);
-}
-
-/* ------------------------------------------- */
-
 void VertexArray::sendToPipelineIndexed ( GLenum ptype, IndexBuffer *b, GLint first, GLsizei num )
 {
   on();

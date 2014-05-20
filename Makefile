@@ -2,7 +2,7 @@
 CC = g++ 
 OPT =  -Wall -I/usr/include/glm -I.  -O2
 LIBOPT =  -L/usr/lib/nvidia-331/ -lglut -lGL -lGLEW
-SOURCES = buffer.cpp framebuffer.cpp glutwrapper.cpp handlerbase.cpp menucreator.cpp mesh.cpp program.cpp shader.cpp texture.cpp tfprogram.cpp trackball.cpp trackballhandler.cpp vertexarray.cpp 
+SOURCES = buffer.cpp framebuffer.cpp glutwrapper.cpp handlerbase.cpp menucreator.cpp mesh.cpp program.cpp shader.cpp texture.cpp tfprogram.cpp trackballhandler.cpp vertexarray.cpp 
 OBJECTS = $(subst .cpp,.o,$(SOURCES))
 
 all : $(SOURCES) demo1 demo2 demo3 demo4
@@ -23,6 +23,10 @@ demo4 : $(OBJECTS) demo4.o Makefile
 %.o: %.cpp *.h Makefile
 	$(CC) $(OPT) -c -o $@ $< 
 
+doc :
+	doxygen
+
 clean : 
 	rm *.o demo1 demo2 demo3 demo4
+	rm -rf html latex
 

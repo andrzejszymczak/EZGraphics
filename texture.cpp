@@ -230,153 +230,16 @@ void Texture::bind ( int i )
 
 /* ----------------------------------------------------- */
 
-/* ----------------------------------------------------- */
-
-  RGBATexture1D::RGBATexture1D ( int x, unsigned char *p ) : Texture(RGBA,x,p)
-{
-  linear();
-}
-
-/* ----------------------------------------------------- */
-
-  RGBTexture1D::RGBTexture1D ( int x, unsigned char *p ) : Texture(RGB,x,p)
-{
-  linear();
-}
-
-/* ----------------------------------------------------- */
-
-  RTexture1D::RTexture1D ( int x, unsigned char *p ) : Texture(R,x,p)
-{
-  linear();
-}
-
-/* ----------------------------------------------------- */
-
-  RGBATexture2D::RGBATexture2D ( int x, int y, unsigned char *p ) : Texture(RGBA,x,p)
-{
-  linear();
-}
-
-/* ----------------------------------------------------- */
-
-  RGBTexture2D::RGBTexture2D ( int x, int y, unsigned char *p ) : Texture(RGB,x,y,p)
-{
-  linear();
-}
-
-/* ----------------------------------------------------- */
-
-  RTexture2D::RTexture2D ( int x, int y, unsigned char *p ) : Texture(R,x,y,p)
-{
-  linear();
-}
-
-/* ----------------------------------------------------- */
-
-  RGBATexture3D::RGBATexture3D ( int x, int y, int z, unsigned char *p ) : Texture(RGBA,x,y,z,p)
-{
-  linear();
-}
-
-/* ----------------------------------------------------- */
-
-  RGBTexture3D::RGBTexture3D ( int x, int y, int z, unsigned char *p ) : Texture(RGB,x,y,z,p)
-{
-  linear();
-}
-
-/* ----------------------------------------------------- */
-
-  RTexture3D::RTexture3D ( int x, int y, int z, unsigned char *p ) : Texture(R,x,y,z,p)
-{
-  linear();
-}
-
-/* ----------------------------------------------------- */
-
-  DepthTexture1D::DepthTexture1D ( int x, unsigned char *p ) : Texture(Depth,x,p)
-  {
-    linear();
-  }
-
-/* ----------------------------------------------------- */
-
-  DepthTexture2D::DepthTexture2D ( int x, int y, unsigned char *p ) : Texture(Depth,x,y,p)
-  {
-    linear();
-  }
-
-/* ----------------------------------------------------- */
-
-  DepthTexture3D::DepthTexture3D ( int x, int y, int z, unsigned char *p ) : Texture(Depth,x,y,z,p)
-  {
-    linear();
-  }
-
-/* ----------------------------------------------------- */
-
-  StencilTexture1D::StencilTexture1D ( int x, unsigned char *p ) : Texture(Stencil,x,p)
-  {
-    nearest();
-  }
-
-/* ----------------------------------------------------- */
-
-  StencilTexture2D::StencilTexture2D ( int x, int y, unsigned char *p ) : Texture(Stencil,x,y,p)
-  {
-    nearest();
-  }
-
-/* ----------------------------------------------------- */
-
-  StencilTexture3D::StencilTexture3D ( int x, int y, int z, unsigned char *p ) : Texture(Stencil,x,y,z,p)
-  {
-    nearest();
-  }
-
-/* ----------------------------------------------------- */
-
-  DepthStencilTexture1D::DepthStencilTexture1D ( int x, unsigned char *p ) : Texture(DepthStencil,x,p)
-  {
-    nearest();
-  }
-
-/* ----------------------------------------------------- */
-
-  DepthStencilTexture2D::DepthStencilTexture2D ( int x, int y, unsigned char *p ) : Texture(DepthStencil,x,y,p)
-  {
-    nearest();
-  }
-
-/* ----------------------------------------------------- */
-
-  DepthStencilTexture3D::DepthStencilTexture3D ( int x, int y, int z, unsigned char *p ) : Texture(DepthStencil,x,y,z,p)
-  {
-    nearest();
-  }
-
-/* ----------------------------------------------------- */
-
-  void DepthStencilTexture2D::setMode ( int i )
-  {
-    glActiveTexture(attachedto);
-    glBindTexture(tgt,handle);
-    glTexParameteri(tgt,GL_DEPTH_STENCIL_TEXTURE_MODE,i);
-  }
-
-/* ----------------------------------------------------- */
-
 // reads 3D texture from a raw binary file,
 // creates and returns a pointer to the resulting texture object
 // arguments: resolution and file name
 
-RGBTexture3D *createRGBTexture3D ( int x, int y, int z, const char *name, GLfloat r, GLfloat g, GLfloat b )
+Texture *Texture::createRGBTexture3D ( int x, int y, int z, const char *name, GLfloat r, GLfloat g, GLfloat b )
 {
   ifstream ifs(name,ios::binary);
   GLubyte *vox = new GLubyte[3*x*y*z];
   ifs.read((char*)vox,3*x*y*z*sizeof(GLubyte));
-  RGBTexture3D *res = new RGBTexture3D(x,y,z,vox);
+  Texture *res = new Texture(RGB,x,y,z,vox);
   res->setBorderColor(r,g,b);
   delete[] vox;
   return res;
@@ -388,7 +251,7 @@ RGBTexture3D *createRGBTexture3D ( int x, int y, int z, const char *name, GLfloa
 // creates and returns a pointer to the resulting texture object
 // The argument: file name (has to be PPM with no comment lines)
   
-RGBTexture2D *createRGBTexture2D ( const char *name, GLfloat r, GLfloat g, GLfloat b )
+Texture *Texture::createRGBTexture2D ( const char *name, GLfloat r, GLfloat g, GLfloat b )
 {
   ifstream ifs(name,ios::binary);
   char c;
@@ -404,7 +267,7 @@ RGBTexture2D *createRGBTexture2D ( const char *name, GLfloat r, GLfloat g, GLflo
   GLubyte *pix = new GLubyte[3*x*y];
   ifs.get();
   ifs.read((char*)pix,3*x*y*sizeof(GLubyte));
-  RGBTexture2D *res = new RGBTexture2D(x,y,pix);
+  Texture *res = new Texture(RGB,x,y,pix);
   res->setBorderColor(r,g,b);
   delete[] pix;
   return res;

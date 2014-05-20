@@ -191,9 +191,9 @@ public:
 
     // we'll use the familiar Phong program and a program to apply texture to the square
 
-    pgmPhong = createProgram(ShaderFile(Vert,"demo3-shaders/vtxPhong.glsl"),
+    pgmPhong = Program::createProgram(ShaderFile(Vert,"demo3-shaders/vtxPhong.glsl"),
 			     ShaderFile(Frag,"demo3-shaders/frgPhong.glsl"));
-    pgmSquare = createProgram(ShaderFile(Vert,"demo3-shaders/vtxSquare.glsl"),
+    pgmSquare = Program::createProgram(ShaderFile(Vert,"demo3-shaders/vtxSquare.glsl"),
 			    ShaderFile(Frag,"demo3-shaders/frgSquare.glsl"));
 
     // this should look familiar: use the Mesh class to read mesh and get 

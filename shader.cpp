@@ -106,7 +106,7 @@ void Shader::printLog ()
 
 /* ------------------------------------------- */
 
-string ReadFromFile ( const char *name )
+string Shader::ReadFromFile ( const char *name )
 {
   ifstream ifs(name);
   if (!ifs)

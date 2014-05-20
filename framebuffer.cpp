@@ -9,6 +9,18 @@ using namespace std;
 
 namespace EZGraphics {
 
+  Framebuffer::Framebuffer ( const Framebuffer &f )
+    {
+        cerr << "Attempting to use copy constructor for a Buffer object" << endl;
+        exit(1);
+    }
+    
+  Framebuffer & Framebuffer::operator= ( const Framebuffer &f )
+    {
+        cerr << "Attempting to use assignment operator for a Buffer object" << endl;
+        exit(1);
+    }
+
   Framebuffer::Framebuffer()
     {
       glGenFramebuffers(1,&handle);

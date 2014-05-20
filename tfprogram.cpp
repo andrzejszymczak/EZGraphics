@@ -156,7 +156,7 @@ TFProgram * createTFProgram ( const std::vector<std::string> &l, ShaderFile s1,
 
   for ( int i=0; i<ins; i++ )
     {
-      string src = ReadFromFile(in[i].name.c_str());
+      string src = Shader::ReadFromFile(in[i].name.c_str());
       sh[i] = new Shader(in[i].type,src);
       cout << _type2string(in[i].type) << " shader log:" << endl;
       sh[i]->printLog();

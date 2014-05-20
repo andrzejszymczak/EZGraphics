@@ -177,13 +177,6 @@ void EventHandlerBase::idleFunction()
 
 /* -------------------------------------- */
 
-void EventHandlerBase::run()
-{
-  glutMainLoop();
-}
-
-/* -------------------------------------- */
-
 int EventHandlerBase::getWindowWidth()
 {
   return windowWidth;

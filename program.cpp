@@ -335,7 +335,7 @@ Program::operator bool()
 
 /* --------------------------------------------- */
 
-Program * createProgram ( ShaderFile s1, ShaderFile s2, ShaderFile s3, ShaderFile s4, ShaderFile s5 )
+Program * Program::createProgram ( ShaderFile s1, ShaderFile s2, ShaderFile s3, ShaderFile s4, ShaderFile s5 )
 {
   ShaderFile in[5];
   Shader *sh[5] = {NULL,NULL,NULL,NULL,NULL};
@@ -359,7 +359,7 @@ Program * createProgram ( ShaderFile s1, ShaderFile s2, ShaderFile s3, ShaderFil
 
   for ( int i=0; i<ins; i++ )
     {
-      string src = ReadFromFile(in[i].name.c_str());
+      string src = Shader::ReadFromFile(in[i].name.c_str());
       sh[i] = new Shader(in[i].type,src);
       cout << _type2string(in[i].type) << " shader log:" << endl;
       sh[i]->printLog();

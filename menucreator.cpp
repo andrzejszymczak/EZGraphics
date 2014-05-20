@@ -17,7 +17,7 @@ std::map<int,MenuCreator::MENUHANDLER> MenuCreator::HandlerFunc;
 
 /* -------------------------------------- */
 
-static MenuCreator::MENUENTRY mkMENUENTRY ( string s, int a, int b, MenuCreator::MENUHANDLER f )
+MenuCreator::MENUENTRY MenuCreator::mkMENUENTRY ( string s, int a, int b, MenuCreator::MENUHANDLER f )
 {
   return make_pair(make_pair(s,a),make_pair(b,f));
 }

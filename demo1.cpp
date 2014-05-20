@@ -88,12 +88,12 @@ public:
     // For NVIDIA GPUs, you may not see anything printed if all went well.
 
     cout << "Creating Gouraud program..." << endl;
-    pgmGouraud = createProgram(
+    pgmGouraud = Program::createProgram(
 			       ShaderFile(Vert,"demo1-shaders/vtxGouraud.glsl"),
 			       ShaderFile(Frag,"demo1-shaders/frgGouraud.glsl")
 			       );
     cout << "Creating Phong program..." << endl;
-    pgmPhong = createProgram(
+    pgmPhong = Program::createProgram(
 			     ShaderFile(Vert,"demo1-shaders/vtxPhong.glsl"),
 			     ShaderFile(Frag,"demo1-shaders/frgPhong.glsl")
 			     );

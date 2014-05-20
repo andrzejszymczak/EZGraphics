@@ -98,29 +98,29 @@ public:
     // Compile and link GLSL programs. The last three include geometry shader
 
     cout << "Creating Gouraud program..." << endl;
-    pgmGouraud = createProgram(
+    pgmGouraud = Program::createProgram(
 			       ShaderFile(Vert,"demo2-shaders/Gouraud/vtxGouraud.glsl"),
 			       ShaderFile(Frag,"demo2-shaders/Gouraud/frgGouraud.glsl")
 			       );
     cout << "Creating Phong program..." << endl;
-    pgmPhong = createProgram(
+    pgmPhong = Program::createProgram(
 			     ShaderFile(Vert,"demo2-shaders/Phong/vtxPhong.glsl"),
 			     ShaderFile(Frag,"demo2-shaders/Phong/frgPhong.glsl")
 			     );
     cout << "Creating Flat program..." << endl;
-    pgmFlat = createProgram(
+    pgmFlat = Program::createProgram(
 			    ShaderFile(Vert,"demo2-shaders/Flat/vtxFlat.glsl"),
 			    ShaderFile(Geom,"demo2-shaders/Flat/geoFlat.glsl"),
 			    ShaderFile(Frag,"demo2-shaders/Flat/frgFlat.glsl")
 			    );
     cout << "Creating WFlat program..." << endl;
-    pgmWFlat = createProgram(
+    pgmWFlat = Program::createProgram(
 			    ShaderFile(Vert,"demo2-shaders/Wire/vtxWire.glsl"),
 			    ShaderFile(Geom,"demo2-shaders/Wire/geoWire.glsl"),
 			    ShaderFile(Frag,"demo2-shaders/Wire/frgWire.glsl")
 			    );
     cout << "Creating Double program..." << endl;
-    pgmDouble = createProgram(
+    pgmDouble = Program::createProgram(
 			    ShaderFile(Vert,"demo2-shaders/Double/vtxDouble.glsl"),
 			    ShaderFile(Geom,"demo2-shaders/Double/geoDouble.glsl"),
 			    ShaderFile(Frag,"demo2-shaders/Double/frgDouble.glsl")

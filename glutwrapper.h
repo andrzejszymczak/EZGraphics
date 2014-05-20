@@ -13,6 +13,7 @@ namespace EZGraphics {
 
   /* -------------------------------------- */
 
+  /** a simple wrapper class for the GLUT library */
   class GLUTwrapper {
     
     static  EventHandlerBase *handler;
@@ -32,7 +33,11 @@ namespace EZGraphics {
 
   public:
 
+    /** constructor; generates an error if called twice 
+\param h is a pointer to a class derived from EventHandlerBase that implements callback functions as methods; see EventHandlerBase documentation */
     GLUTwrapper ( EventHandlerBase *h );
+
+    /** run the event loop */
     void run();
   };
 

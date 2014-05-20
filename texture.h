@@ -5,6 +5,16 @@ namespace EZGraphics {
 
 /* ------------------------------------------- */
 
+/** 
+    supported texture formats
+    R, RG, RGB and RGBA are 8-bit unsigned integer textures (with 1...4 components)
+    RF, RGF, RGBF, RGBAF are 32-bit floating point textures 
+    RSF, RGSF, RGBSF, RGBASF are 16-bit floating point textures
+    R32UI, RG32UI, RGB32UI, RGBA32UI are 32-bit unsigned int textures
+    Depth is a 32-bit floating point depth texture
+    DepthStencil is a 24-bit depth / 8 bit stencil texture
+    Stencil is a 16-bit int stencil texture 
+*/
   typedef enum { R, RG, RGB, RGBA, // 8-bit
 		 RF, RGF, RGBF, RGBAF, // 32-bit float
 		 RSF, RGSF, RGBSF, RGBASF, // 16-bit float
@@ -13,181 +23,126 @@ namespace EZGraphics {
 
 /* ------------------------------------------- */
 
+/** a wrapper for OpenGL texture objects */
+
   class Texture {
 
   protected:
 
     GLuint handle;
+    GLenum tgt;
+    GLenum attachedto;
+
+  private:
     int dim;
     int size[3];
     GLint internalfmt;
     GLenum fmt;
     GLenum type;
-    GLenum tgt;
-    GLenum attachedto;
 
 /* ------------------------------------------- */
 
   public:
 
-    Texture ( TexFormat t, int x, int y, int z, GLvoid *data = NULL );  // 3D
-    Texture ( TexFormat t, int x, int y, GLvoid *data = NULL );         // 2D
-    Texture ( TexFormat t, int x, GLvoid *data = NULL );                // 1D
+    /** constructor for 3D textures
+	\param t is the texture format
+	\param x,y,z are the resolution of the texture
+	\param data points to data to be transferred into the texture (no data is transferred if NULL; NULL is the default value
+    */
+    Texture ( TexFormat t, int x, int y, int z, GLvoid *data = NULL ); 
+
+    /** constructor for 2D textures
+	\param t is the texture format
+	\param x,y are the resolution of the texture
+	\param data points to data to be transferred into the texture (no data is transferred if NULL; NULL is the default value
+    */
+    Texture ( TexFormat t, int x, int y, GLvoid *data = NULL );    
+    
+    
+    /** constructor for 1D textures
+	\param t is the texture format
+	\param x is the resolution of the texture
+	\param data points to data to be transferred into the texture (no data is transferred if NULL; NULL is the default value
+    */
+    Texture ( TexFormat t, int x, GLvoid *data = NULL );               
+
+    /** destructor - deletes the texture object */
     ~Texture();
 
-    // don't use - will generate an error
+    /** will generate an error - use only pointers to Texture objects for best results */
     Texture ( const Texture & );
+
+    /** will generate an error - use only pointers to Texture objects for best results */
     Texture & operator= ( const Texture & );
-    
+
+    /** sets interpolation scheme to linear */    
     void linear();
+
+    /** sets interpolation scheme to nearest */
     void nearest();
+
+    /** clamp texture to edge */
     void clampToEdge();
+
+    /** clamp to border */
     void clampToBorder();
+
+    /* sets border color
+       \param r,g,b is the new border color in the RGB format; all values are clamped to [0,1]
+    */
     void setBorderColor ( GLfloat r, GLfloat g, GLfloat b );
+
+    /** repeat mode */
     void repeat();
 
+    /** makes a mipmap */
     void makeMipmap();
 
+    /** attach texture to a texture attachment point
+	\param TAP is the attachment point; TAP should be a small integer (0...15)
+    */
     void bind ( int TAP );  // attaches to a texture attachment point #i
 
+    /** attach as an image that can be read or written to inside shaders 
+	\param index is the index (should match the binding qualifier for the respective image variable in a shader)
+	\param level is the mipmap level to be attached
+    */
     void bindAsImage ( int index, int level = 0 );  // attaches as an image...
+
+
+    /** attach as an image that can be read inside shaders 
+	\param index is the index (should match the binding qualifier for the respective image variable in a shader)
+	\param level is the mipmap level to be attached
+    */
     void bindAsROImage ( int index, int level = 0 );  // attaches as an image...
+
+
+    /** attach as an image that can be written to inside shaders 
+	\param index is the index (should match the binding qualifier for the respective image variable in a shader)
+	\param level is the mipmap level to be attached
+    */
     void bindAsWOImage ( int index, int level = 0 );  // attaches as an image...
 
+    /** returns the OpenGL name of the texture object */
     GLuint getHandle();
-  };
 
-/* ------------------------------------------- */
+    /** reads 3D texture from a raw 8-bit RGB binary file, creates and returns a pointer to the resulting texture object
+	\param x,y,z are resolutions of the texture
+	\param name is the file name
+	\param r,g,b define the border color (default values: 0)
+    */
+    static Texture *createRGBTexture3D ( int x, int y, int z, const char *name, GLfloat r = 0.0, GLfloat g = 0.0, GLfloat b = 0.0 );
 
-  class RGBTexture1D : public Texture
-  {
-  public:
-    RGBTexture1D ( int x, unsigned char *ptr = NULL );
-  };
-
-  class RGBTexture2D : public Texture
-  {
-  public:
-    RGBTexture2D ( int x, int y, unsigned char *ptr = NULL );
-  };
-
-  class RGBTexture3D : public Texture 
-  {
-  public:
-    RGBTexture3D ( int x, int y, int z, unsigned char *ptr = NULL );
-  };
-
-  class RGBATexture1D : public Texture
-  {
-  public:
-    RGBATexture1D ( int x, unsigned char *ptr = NULL );
-  };
-
-  class RGBATexture2D : public Texture
-  {
-  public:
-    RGBATexture2D ( int x, int y, unsigned char *ptr = NULL );
-  };
-
-  class RGBATexture3D : public Texture 
-  {
-  public:
-    RGBATexture3D ( int x, int y, int z, unsigned char *ptr = NULL );
-  };
-
-  class RTexture1D : public Texture
-  {
-  public:
-    RTexture1D ( int x, unsigned char *ptr = NULL );
-  };
-
-  class RTexture2D : public Texture
-  {
-  public:
-    RTexture2D ( int x, int y, unsigned char *ptr = NULL );
-  };
-
-  class RTexture3D : public Texture 
-  {
-  public:
-    RTexture3D ( int x, int y, int z, unsigned char *ptr = NULL );
-  };
-
-  class DepthTexture1D : public Texture
-  {
-  public:
-    DepthTexture1D ( int x, unsigned char *ptr = NULL );
-  };
-
-  class DepthTexture2D : public Texture
-  {
-  public:
-    DepthTexture2D ( int x, int y, unsigned char *ptr = NULL );
-  };
-
-  class DepthTexture3D : public Texture 
-  {
-  public:
-    DepthTexture3D ( int x, int y, int z, unsigned char *ptr = NULL );
-  };
-
-  class StencilTexture1D : public Texture
-  {
-  public:
-    StencilTexture1D ( int x, unsigned char *ptr = NULL );
-  };
-
-  class StencilTexture2D : public Texture
-  {
-  public:
-    StencilTexture2D ( int x, int y, unsigned char *ptr = NULL );
-  };
-
-  class StencilTexture3D : public Texture 
-  {
-  public:
-    StencilTexture3D ( int x, int y, int z, unsigned char *ptr = NULL );
-  };
-
-
-  class DepthStencilTexture1D : public Texture
-  {
-  public:
-    DepthStencilTexture1D ( int x, unsigned char *ptr = NULL );
-  };
-
-  class DepthStencilTexture2D : public Texture
-  {
-  public:
-    DepthStencilTexture2D ( int x, int y, unsigned char *ptr = NULL );
-    void setMode ( int i );
-  };
-
-  class DepthStencilTexture3D : public Texture 
-  {
-  public:
-    DepthStencilTexture3D ( int x, int y, int z, unsigned char *ptr = NULL );
-  };
-
-
-  /* ----------------------------------------------------- */
-
-  // reads 3D texture from a raw 8-bit RGB binary file,
-  // creates and returns a pointer to the resulting texture object
-  // arguments: resolution and file name
-  //  optional arguments: border color
-
-  RGBTexture3D *createRGBTexture3D ( int x, int y, int z, const char *name, GLfloat r = 0.0, GLfloat g = 0.0, GLfloat b = 0.0 );
-
-  /* ----------------------------------------------------- */
+    /* ----------------------------------------------------- */
   
-  // reads a 2D texture from a binary 8-bit RGB PPM file
-  // creates and returns a pointer to the resulting texture object
-  // The argument: file name (has to be PPM with no comment lines)
-  //  optional arguments: border color
-
-  extern RGBTexture2D *createRGBTexture2D ( const char *name, GLfloat r = 0.0, GLfloat g = 0.0, GLfloat b = 0.0 );
+    /**  reads a 2D texture from a binary 8-bit RGB PPM file creates and returns a pointer to the resulting texture object
+	 \param name is the file name (has to be a PPM with no comment lines)
+	 \param r,g,b : the border color
+    */
+    static Texture *createRGBTexture2D ( const char *name, GLfloat r = 0.0, GLfloat g = 0.0, GLfloat b = 0.0 );
   
+  };
+
   /* ----------------------------------------------------- */
 
 };

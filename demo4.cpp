@@ -119,7 +119,7 @@ public:
 
     /* TessE = tesselation evaluation, TessC = tesselation control */
 
-    p = createProgram(ShaderFile(Vert,"demo4-shaders/vtx.glsl"),
+    p = Program::createProgram(ShaderFile(Vert,"demo4-shaders/vtx.glsl"),
 		      ShaderFile(TessC,"demo4-shaders/ctrl.glsl"),
 		      ShaderFile(TessE,"demo4-shaders/eval.glsl"),
 		      ShaderFile(Geom,"demo4-shaders/geom.glsl"),
