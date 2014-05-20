@@ -29,7 +29,6 @@ namespace EZGraphics {
     GLenum getType() const { return type; }
     GLuint getHandle() const { return handle; }
 
-  protected:
     Buffer ( const int cs, const int size, const GLubyte * const data = NULL, const BufType t = Array );
     Buffer ( const int cs, const int size, const GLbyte * const data = NULL, const BufType t = Array );
     Buffer ( const int cs, const int size, const GLuint * const data = NULL, const BufType t = Array );

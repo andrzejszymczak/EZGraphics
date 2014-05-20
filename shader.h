@@ -44,7 +44,7 @@ namespace EZGraphics {
     /** prints the compilation errors */
     void printLog();
 
-    /* returns true if the shader compiled successfully */
+    /** returns true if the shader compiled successfully */
     operator bool();
 
     /** reads a file to a string 

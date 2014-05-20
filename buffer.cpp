@@ -674,13 +674,13 @@ void Buffer::useAsShaderStorage ( GLuint index )
 /* ------------------------------------------- */
 
 IndexBuffer::IndexBuffer ( const int size, const GLubyte * const data ) :
-  Buffer(1,size,data,ElemArray) {}
+  Buffer(size,data,ElemArray) {}
 
 IndexBuffer::IndexBuffer ( const int size, const GLuint * const data ) :
-  Buffer(1,size,data,ElemArray) {}
+  Buffer(size,data,ElemArray) {}
       
 IndexBuffer::IndexBuffer ( const int size, const GLushort * const data ) :
-  Buffer(1,size,data,ElemArray) {}
+  Buffer(size,data,ElemArray) {}
 
 IndexBuffer::IndexBuffer ( const int size, const glm::uvec2 * const data ) :
   Buffer(size,data,ElemArray) {}
