@@ -60,6 +60,7 @@ namespace EZGraphics {
 
   protected:
 
+    /** a version of the constructor used in transform feedback */
     Program ( const std::vector<std::string> &l,
 	      const Shader *aa = NULL, const Shader *bb = NULL, const Shader *cc = NULL, const Shader *dd = NULL, const Shader *ee = NULL );
 

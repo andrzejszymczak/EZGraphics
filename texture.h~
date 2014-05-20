@@ -27,12 +27,13 @@ namespace EZGraphics {
 
   class Texture {
 
-  private:
+  protected:
 
     GLuint handle;
     GLenum tgt;
     GLenum attachedto;
 
+  private:
     int dim;
     int size[3];
     GLint internalfmt;
