@@ -24,29 +24,28 @@
 */
 #version 420
 
-// this shader is basically identical to the Phong fragment shader.
-// The only differences: input variable names changed to remove
-// name conflict with the outputs of vertex shader.
-// And using complementary k's if which = 1, to color the two copies
-// of the model differently.
+out vec4 fragcolor;
 
-out vec3 fragcolor;
-
-noperspective in vec3 _wnormal2;
-noperspective in vec3 _wcoord2;
-flat in int which;
+noperspective in vec3 _wnormal;
+noperspective in vec3 _wcoord;
 
 uniform vec3 lloc;
 uniform vec3 kd,ka,ks;
 uniform float nspec;
 uniform vec3 I,Ia;
 uniform int reor;
+uniform int dfilter;
+
+layout (binding=0) uniform sampler2DShadow depth;
 
 void main() { 
 
-    vec3 N = reor*normalize(_wnormal2);
-    vec3 L = normalize(lloc-_wcoord2);
-    vec3 V = -normalize(_wcoord2);
+    if (dfilter==1 && texture(depth,vec3(gl_FragCoord.xy/800.0,gl_FragCoord.z)).r==1)
+	discard;
+
+    vec3 N = reor*(gl_FrontFacing ? 1 : -1)*normalize(_wnormal);
+    vec3 L = normalize(lloc-_wcoord);
+    vec3 V = -normalize(_wcoord);
     vec3 H = normalize(L+V);
 
     float NdotL = dot(N,L);
@@ -55,6 +54,5 @@ void main() {
     if (NdotL<0) NdotL = 0.0;
     if (HdotN<0) HdotN = 0.0;
 
-    fragcolor = which==0 ? ka*Ia + (kd*NdotL + ks*pow(HdotN,nspec))*I :
-			(vec3(1)-ka)*Ia + ((vec3(1)-kd)*NdotL + (vec3(1)-ks)*pow(HdotN,nspec))*I;
+    fragcolor = vec4(ka*Ia + (kd*NdotL + ks*pow(HdotN,nspec))*I,0.6);
 } 
